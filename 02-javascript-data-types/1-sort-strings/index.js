@@ -5,16 +5,16 @@
  * @returns {string[]}
  */
 export function sortStrings(arr, param = 'asc') {
-  const newArray = [...arr]
+  const newArray = [...arr];
   let collator = new Intl.Collator('ru-RU', {caseFirst: 'upper'});
 
   if (param === 'asc') {
     return newArray.sort((a, b) => {
-      return collator.compare(a, b)
+      return collator.compare(a, b);
     });
   } else if (param === 'desc') {
     return newArray.sort((a, b) => {
-      return collator.compare(b, a)
+      return collator.compare(b, a);
     });
   }
 }
