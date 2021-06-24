@@ -4,7 +4,7 @@
  * @returns {object | undefined} - returns new object or undefined if nothing did't pass
  */
 export function invertObj(obj) {
-  let result = {};
+  const result = {};
   if (typeof obj !== 'undefined') {
     for (const [key, value] of Object.entries(obj)) {
       result[value] = key;
