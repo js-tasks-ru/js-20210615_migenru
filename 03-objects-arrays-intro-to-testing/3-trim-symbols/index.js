@@ -12,7 +12,7 @@ export function trimSymbols(string, size) {
     newStr += (string[i] === string[i + 1]) ? string[i] : `${string[i]} `;
   }
 
-  for (let i of newStr.split(' ')) {
+  for (const i of newStr.split(' ')) {
     result += (i.length < size) ? i.substr(0, i.length) : i.substr(0, size);
   }
   return result;
