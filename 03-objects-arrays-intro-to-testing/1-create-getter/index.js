@@ -7,7 +7,7 @@ export function createGetter(path) {
   function foo(obj) {
     let result = obj;
     for (const item of path.split('.')) {
-      result = (result !== undefined) ? result[item] : undefined;
+      result = (typeof result !== 'undefined') ? result[item] : undefined;
     }
     return result;
   }
