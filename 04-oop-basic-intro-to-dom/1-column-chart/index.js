@@ -1,20 +1,31 @@
 export default class ColumnChart {
-  constructor(props = {}) {
-    this.render(props);
-    this.initEventListeners();
+  element;
+  subElements = {};
+  chartHeight = 50;
+
+  constructor({
+    data = [],
+    label = '',
+    link = '',
+    value = 0,
+    formatHeading = data => data,
+  } = {}) {
+
+    this.data = data;
+    this.label = label;
+    this.link = link;
+    this.value = formatHeading(value);
+
+    this.render();
     this.update();
-    this.chartHeight = 50;
   }
 
-  render(props) {
+  render() {
     const element = document.createElement('div');
-    const {label, data, value, formatHeading, link} = props;
-    const newData = (data === undefined) ? [] : data;
-    const chartHeight = 50;
 
     const getColumnProps = (data) => {
       const maxValue = Math.max(...data);
-      const scale = chartHeight / maxValue;
+      const scale = this.chartHeight / maxValue;
 
       return data.map(item => {
         return {
@@ -25,18 +36,18 @@ export default class ColumnChart {
     };
 
     element.innerHTML = `
-    <div class="column-chart ${ (newData.length) ? `` : `column-chart_loading` }"
-    style="--chart-height: ${chartHeight}">
+    <div class="column-chart ${ (this.data.length) ? `` : `column-chart_loading` }"
+    style="--chart-height: ${this.chartHeight}">
       <div class="column-chart__title">
-        Total ${label}
-        ${ link ? '<a href="' + link + '" class="column-chart__link">View all</a>' : '' }
+        Total ${this.label}
+        ${ this.link ? '<a href="' + this.link + '" class="column-chart__link">View all</a>' : '' }
       </div>
       <div class="column-chart__container">
         <div data-element="header" class="column-chart__header">
-            ${formatHeading ? formatHeading(value) : value}
+            ${this.value}
         </div>
         <div data-element="body" class="column-chart__chart">
-         ${getColumnProps(newData).map(item =>
+         ${getColumnProps(this.data).map(item =>
     `<div style="--value: ${item.value}" data-tooltip="${item.percent}">
                      </div>`).join('')
 }
@@ -48,9 +59,6 @@ export default class ColumnChart {
     this.element = element.firstElementChild;
   }
 
-  initEventListeners() {
-  //  NOTE: добавляем события
-  }
 
   remove() {
     this.element.remove();
