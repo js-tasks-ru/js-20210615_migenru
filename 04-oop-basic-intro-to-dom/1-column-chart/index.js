@@ -59,17 +59,25 @@ export default class ColumnChart {
     this.element = element.firstElementChild;
   }
 
+  getColumnBody(element) {
+    return element;
+  }
+
 
   remove() {
-    this.element.remove();
+    if (this.element) {
+      this.element.remove();
+    }
   }
 
   destroy() {
     this.remove();
+    this.element = null;
+    this.subElements = {};
   }
 
-  update(arg) {
-    arg;
+  update(data) {
+    return data
   }
 
 }
