@@ -1,4 +1,3 @@
-/* eslint-disable curly */
 export default class SortableTable {
 
   handlerEvent = {
