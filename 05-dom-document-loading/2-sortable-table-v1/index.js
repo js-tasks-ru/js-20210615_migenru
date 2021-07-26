@@ -1,5 +1,5 @@
 export default class SortableTable {
-  constructor(headerConfig = [], data = {}) {
+  constructor(headerConfig = [], data = []) {
     this.headerConfig = headerConfig;
     this.data = data.data;
 
@@ -96,12 +96,12 @@ export default class SortableTable {
 
     return copy.sort((firstItem, secondItem) => {
       switch (sortType) {
-      case 'string':
-        return direction * firstItem[field].localeCompare(secondItem[field], ['ru', 'en'], {caseFirst: 'upper'});
-      case 'number':
-        return direction * (firstItem[field] - secondItem[field]);
-      default:
-        return direction * (firstItem[field] - secondItem[field]);
+        case 'string':
+          return direction * firstItem[field].localeCompare(secondItem[field], ['ru', 'en'], {caseFirst: 'upper'});
+        case 'number':
+          return direction * (firstItem[field] - secondItem[field]);
+        default:
+          return direction * (firstItem[field] - secondItem[field]);
       }
     });
   }
@@ -110,7 +110,6 @@ export default class SortableTable {
     const element = document.createElement('div');
 
     element.innerHTML = this.getTable();
-
     this.element = element.firstElementChild;
     this.subElements = this.getSubElements(this.element);
   }
